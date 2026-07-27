@@ -1,0 +1,52 @@
+---
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  bullets: string[];
+  prize?: string;
+  links: LinkItem[];
+  image?: string;
+  featured?: boolean;
+}
+
+const { title, subtitle, bullets, prize, links, image, featured = false } = Astro.props;
+---
+
+<div
+  class={`card-tilt rounded-2xl border border-border bg-surface p-6 sm:p-8 ${featured ? 'md:col-span-2' : ''}`}
+>
+  {image && (
+    <div class="mb-5 overflow-hidden rounded-lg border border-border">
+      <img src={image} alt={`${title} cover art`} class="w-full h-auto" loading="lazy" />
+    </div>
+  )}
+
+  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+    <div>
+      <h3 class="text-xl font-bold text-text" style="font-family: var(--font-display);">{title}</h3>
+      <p class="mt-1 text-sm text-muted">{subtitle}</p>
+    </div>
+    {prize && (
+      <span class="self-start sm:shrink-0 rounded-full border border-accent-h/40 px-3 py-1 text-xs font-medium text-accent-h">
+        {prize}
+      </span>
+    )}
+  </div>
+
+  <ul class="mt-4 space-y-1.5 text-sm text-muted list-disc list-inside">
+    {bullets.map((bullet) => <li>{bullet}</li>)}
+  </ul>
+
+  <div class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+    {links.map((item) => (
+      <a href={item.href} target="_blank" rel="noopener noreferrer" class="font-medium text-accent-h hover:text-accent">
+        {item.label} ↗
+      </a>
+    ))}
+  </div>
+</div>

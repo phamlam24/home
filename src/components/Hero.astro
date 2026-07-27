@@ -1,0 +1,98 @@
+---
+---
+
+<section class="relative min-h-[90vh] flex flex-col justify-center overflow-hidden px-6">
+  <canvas
+    id="hero-canvas"
+    class="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-70"
+    aria-hidden="true"
+  ></canvas>
+
+  <div
+    class="pointer-events-none absolute inset-0 -z-20"
+    style="background: radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--color-accent-2) 18%, transparent), transparent 60%),
+                       radial-gradient(circle at 75% 60%, color-mix(in srgb, var(--color-accent-h) 14%, transparent), transparent 55%);"
+  ></div>
+
+  <div class="mx-auto max-w-4xl text-center">
+    <h1
+      class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-text"
+      style="font-family: var(--font-display);"
+    >
+      Lam Pham
+    </h1>
+    <p class="mt-6 text-lg sm:text-xl text-muted max-w-2xl mx-auto">
+      A creative, ambitious engineer building at the intersection of
+      <span id="rotating-word-wrapper" class="inline-block overflow-hidden align-bottom" style="transition: width 0.3s ease;">
+        <span id="rotating-word" class="text-accent-h font-semibold whitespace-nowrap">web development</span>
+      </span>.
+    </p>
+    <div class="mt-10 flex items-center justify-center gap-6 text-sm">
+      <a href="#work" class="rounded-full border border-border px-5 py-2.5 text-text hover:border-accent-h no-underline transition-colors">
+        See my work
+      </a>
+      <a
+        href="https://github.com/phamlam24"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        class="text-muted hover:text-accent-h transition-colors"
+      >
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.37 0 0 5.4 0 12.06c0 5.33 3.44 9.85 8.21 11.45.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.62-4.04-1.62-.55-1.4-1.34-1.78-1.34-1.78-1.09-.75.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.85 2.81 1.31 3.49 1 .11-.79.42-1.31.76-1.62-2.67-.31-5.47-1.35-5.47-6.01 0-1.33.47-2.41 1.24-3.26-.12-.31-.54-1.56.12-3.25 0 0 1.01-.33 3.3 1.24a11.4 11.4 0 0 1 6 0c2.29-1.57 3.3-1.24 3.3-1.24.66 1.69.24 2.94.12 3.25.77.85 1.24 1.93 1.24 3.26 0 4.67-2.81 5.7-5.49 6 .43.38.81 1.13.81 2.28 0 1.65-.02 2.98-.02 3.38 0 .32.22.7.83.58C20.56 21.9 24 17.38 24 12.06 24 5.4 18.63 0 12 0Z" />
+        </svg>
+      </a>
+      <a
+        href="https://www.linkedin.com/in/lam-pham/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+        class="text-muted hover:text-accent-h transition-colors"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const words = ['web development', 'AI integrations', 'XR'];
+  const el = document.getElementById('rotating-word');
+  const wrapper = document.getElementById('rotating-word-wrapper');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function measureWidth(text: string) {
+    // Appended as a sibling of the real word (inside the same <p>) rather than
+    // document.body, so it inherits the paragraph's font-size (text-lg/xl) —
+    // measuring against body's base size instead clipped the wrapper too narrow.
+    const clone = el!.cloneNode(true) as HTMLElement;
+    clone.textContent = text;
+    clone.style.position = 'absolute';
+    clone.style.visibility = 'hidden';
+    clone.style.width = 'auto';
+    wrapper!.parentElement!.appendChild(clone);
+    const width = clone.getBoundingClientRect().width;
+    clone.remove();
+    return Math.ceil(width) + 2;
+  }
+
+  if (el && wrapper) {
+    wrapper.style.width = `${measureWidth(el.textContent || '')}px`;
+  }
+
+  if (el && wrapper && !prefersReducedMotion) {
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % words.length;
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.textContent = words[i];
+        wrapper.style.width = `${measureWidth(words[i])}px`;
+        el.style.opacity = '1';
+      }, 200);
+    }, 2200);
+    el.style.transition = 'opacity 0.2s ease';
+  }
+</script>

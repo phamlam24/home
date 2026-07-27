@@ -1,0 +1,20 @@
+---
+interface Props {
+  org: string;
+  role: string;
+  dates: string;
+  bullets: string[];
+}
+
+const { org, role, dates, bullets } = Astro.props;
+---
+
+<div class="border-l-2 border-border pl-6 py-1">
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+    <h3 class="font-semibold text-text">{org} <span class="font-normal text-muted">— {role}</span></h3>
+    <span class="text-xs text-overlay whitespace-nowrap">{dates}</span>
+  </div>
+  <ul class="mt-2 space-y-1.5 text-sm text-muted list-disc list-inside">
+    {bullets.map((bullet) => <li>{bullet}</li>)}
+  </ul>
+</div>

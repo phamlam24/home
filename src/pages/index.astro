@@ -1,70 +1,151 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { isLoggedIn } from '../lib/auth';
-import { AUTH_ORIGIN } from '../lib/authOrigin';
-
-interface AppLink {
-  name: string;
-  href: string;
-  description: string;
-  requiresLogin: boolean;
-}
-
-// Add a new app here once it's deployed — that's the only edit needed to
-// surface it on this hub.
-const APPS: AppLink[] = [
-  {
-    name: 'Climbing Tracker',
-    href: 'https://climbing.lampham.space',
-    description: 'Personal bouldering/lead log',
-    requiresLogin: false,
-  },
-  {
-    name: 'Learn',
-    href: 'https://learn.lampham.space',
-    description: 'Course app for this stack',
-    requiresLogin: true,
-  },
-];
-
-const loggedIn = await isLoggedIn(Astro.request, Astro.cookies);
-const visibleApps = APPS.filter((app) => !app.requiresLogin || loggedIn);
-
-const isLocalhost = Astro.url.hostname === 'localhost' || Astro.url.hostname === '127.0.0.1';
-const redirect = encodeURIComponent(Astro.url.href);
-const loginUrl = `${AUTH_ORIGIN}/login?redirect=${redirect}`;
-const logoutUrl = `${AUTH_ORIGIN}/logout?redirect=${redirect}`;
+import Hero from '../components/Hero.astro';
+import StatsStrip from '../components/StatsStrip.astro';
+import WorkCard from '../components/WorkCard.astro';
+import ExperienceItem from '../components/ExperienceItem.astro';
 ---
 
 <BaseLayout>
-  <header class="mb-10 flex items-start justify-between">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight text-text">Lam Pham</h1>
-      <p class="mt-1 text-sm text-muted">lampham.space</p>
+  <Hero />
+
+  <StatsStrip />
+
+  <section id="work" class="reveal mx-auto max-w-4xl px-6 py-20">
+    <h2 class="text-2xl font-bold text-text mb-2" style="font-family: var(--font-display);">Selected Work</h2>
+    <p class="text-sm text-muted mb-8">
+      A few things I'm proud of, out of a lot more on GitHub. TeachXR and Young Heroes are just two of many apps I've
+      built with my hackathon team, <a href="https://vietrochack.com" target="_blank" rel="noopener noreferrer" class="text-accent-h hover:text-accent">VietRocHack ↗</a>.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <WorkCard
+        featured
+        title="TeachXR"
+        subtitle="AI study assistant in extended reality, built for Meta Quest"
+        prize="Most Impressive Use of Voice AI — CalHacks 2024"
+        image="/images/teachxr-cover.jpg"
+        links={[
+          { label: 'Devpost', href: 'https://devpost.com/software/teachxr' },
+          { label: 'Watch demo', href: 'https://youtu.be/qVoCHS9BaIc' },
+        ]}
+        bullets={[
+          'Real-time OCR microservice reading Meta Quest camera streams — 50ms latency, 98% accuracy (Google Cloud Vision + SingleStore MongoDB)',
+          'Human-like LLM voice teacher (Vapi AI: Cartesia, Gemini, Deepgram) — 85% positive feedback',
+          'React + Tailwind frontend for live transcription and interaction',
+        ]}
+      />
+
+      <WorkCard
+        title="Young Heroes"
+        subtitle="AI-powered 911 call simulation teaching kids emergency response"
+        prize="3rd Place Overall — HopHacks"
+        image="/images/youngheroes-cover.jpg"
+        links={[{ label: 'Devpost', href: 'https://devpost.com/software/young-heroes-hmi2vl' }]}
+        bullets={[
+          'Two microservices: Flask API with Whisper speech recognition + GPT-4o Assistant',
+          '3000ms response time at 95% accuracy',
+        ]}
+      />
+
+      <WorkCard
+        title="class-io"
+        subtitle="MCP server exposing course schedules and notes to AI assistants"
+        image="/images/classio-cover.jpg"
+        links={[
+          { label: 'Devpost', href: 'https://devpost.com/software/classio' },
+          { label: 'GitHub', href: 'https://github.com/phamlam24/class-io' },
+        ]}
+        bullets={[
+          'Model Context Protocol tools for schedules, exams, and lecture notes',
+          'Notion + Google Calendar integrations',
+        ]}
+      />
     </div>
-    {!isLocalhost && (
-      <a
-        href={loggedIn ? logoutUrl : loginUrl}
-        class="text-xs font-medium text-muted hover:text-accent-h transition-colors mt-1"
-      >
-        {loggedIn ? 'Log out' : 'Log in'}
-      </a>
-    )}
-  </header>
 
-  <nav class="flex-1 flex flex-col gap-3">
-    {visibleApps.map((app) => (
-      <a
-        href={app.href}
-        class="block rounded-lg border border-border bg-surface px-5 py-4 hover:border-accent-h transition-colors"
-      >
-        <span class="block text-base font-semibold text-text">{app.name}</span>
-        <span class="block text-sm text-muted no-underline">{app.description}</span>
-      </a>
-    ))}
-  </nav>
+    <p class="mt-8 text-xs text-overlay">8+ years programming and solving problems — GitHub commits go back to 2019.</p>
+  </section>
 
-  <footer class="mt-12 pt-4 border-t border-border text-center text-xs text-overlay">
+  <section class="reveal mx-auto max-w-3xl px-6 py-20">
+    <h2 class="text-2xl font-bold text-text mb-8" style="font-family: var(--font-display);">Experience</h2>
+    <div class="flex flex-col gap-8">
+      <ExperienceItem
+        org="Fetch Rewards"
+        role="Backend Engineer Intern"
+        dates="May – Aug 2025"
+        bullets={[
+          'Designed Go endpoints replacing cache dependencies — 80% reduction in response payload size',
+          'Built resilient data-hydration services with concurrency, retries, and backoff — 60% P99 latency cut, serving 250K+ daily users',
+          'Researched MCP and agentic workflows — 150% efficiency gain in context-finding, 200% increase in business-aware unit testing',
+        ]}
+      />
+      <ExperienceItem
+        org="HiNET Vietnam"
+        role="Fullstack Development Intern"
+        dates="May – Aug 2023"
+        bullets={[
+          'Built a classification system for a government database of 2M+ companies (SQL, ASP.NET MVC)',
+          'Overhauled Excel export via C# extensions — 75% runtime reduction',
+          '8 responsive frontend pages, including chart dashboards',
+        ]}
+      />
+      <ExperienceItem
+        org="CETL Tutoring Center, UofR"
+        role="CS & Math Tutor"
+        dates="Aug 2023 – May 2025"
+        bullets={[
+          '220 1-on-1 sessions, 95% positive feedback, 90% reported improvement',
+          'Authored an OOP debugging tutorial used by 30+ students',
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="reveal mx-auto max-w-3xl px-6 pb-20">
+    <p class="text-sm text-muted">
+      <span class="font-semibold text-text">Right now:</span> learning Linux, Vim, and how operating systems actually work.
+    </p>
+  </section>
+
+  <section class="reveal border-y border-border bg-surface/40">
+    <div class="mx-auto max-w-2xl px-6 py-16 text-center">
+      <h2 class="text-2xl font-bold text-text" style="font-family: var(--font-display);">Let's connect</h2>
+      <p class="mt-2 text-sm text-muted">Open to new opportunities and interesting problems — reach out.</p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="https://www.linkedin.com/in/lam-pham/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-base no-underline hover:bg-accent-h transition-colors"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z" />
+          </svg>
+          Connect on LinkedIn
+        </a>
+        <a
+          href="mailto:lamphamthedev@gmail.com"
+          class="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold text-text no-underline hover:border-accent-h transition-colors"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m2 6 10 7 10-7" />
+          </svg>
+          Email me
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mx-auto max-w-3xl px-6 pb-16 pt-8 text-center text-xs text-overlay flex flex-wrap justify-center gap-6">
+    <a href="/apps" class="hover:text-muted transition-colors">apps</a>
     <a href="https://github.com/phamlam24" class="hover:text-muted transition-colors">github</a>
+    <a href="https://www.linkedin.com/in/lam-pham/" class="hover:text-muted transition-colors">linkedin</a>
+    <a href="/resume.pdf" class="hover:text-muted transition-colors">resume</a>
+    <a href="mailto:lamphamthedev@gmail.com" class="hover:text-muted transition-colors">email</a>
   </footer>
+
+  <script src="../scripts/hero-scene.ts"></script>
+  <script src="../scripts/reveal.ts"></script>
+  <script src="../scripts/card-tilt.ts"></script>
 </BaseLayout>

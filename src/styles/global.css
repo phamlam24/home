@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@import "@catppuccin/tailwindcss/macchiato.css";
+
+/*
+  Same semantic-alias approach as climbing-tracker/learn — components use
+  these names, never ctp-* directly, so swapping flavors is a single-file edit.
+*/
+@theme {
+  --color-base:     var(--color-ctp-base);
+  --color-mantle:   var(--color-ctp-mantle);
+  --color-crust:    var(--color-ctp-crust);
+  --color-surface:  var(--color-ctp-surface0);
+  --color-surface2: var(--color-ctp-surface1);
+  --color-border:   var(--color-ctp-surface0);
+  --color-text:     var(--color-ctp-text);
+  --color-muted:    var(--color-ctp-subtext1);
+  --color-overlay:  var(--color-ctp-overlay1);
+
+  --color-accent:   var(--color-ctp-green);
+  --color-accent-h: var(--color-ctp-teal);
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    background-color: var(--color-mantle);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-accent-h);
+    text-decoration: underline;
+  }
+}

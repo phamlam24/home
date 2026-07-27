@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { isLoggedIn } from '../lib/auth';
+import { AUTH_ORIGIN } from '../lib/authOrigin';
+
+interface AppLink {
+  name: string;
+  href: string;
+  description: string;
+  requiresLogin: boolean;
+}
+
+// Add a new app here once it's deployed — that's the only edit needed to
+// surface it on this hub.
+const APPS: AppLink[] = [
+  {
+    name: 'Climbing Tracker',
+    href: 'https://climbing.lampham.space',
+    description: 'Personal bouldering/lead log',
+    requiresLogin: false,
+  },
+  {
+    name: 'Learn',
+    href: 'https://learn.lampham.space',
+    description: 'Course app for this stack',
+    requiresLogin: true,
+  },
+];
+
+const loggedIn = await isLoggedIn(Astro.request, Astro.cookies);
+const visibleApps = APPS.filter((app) => !app.requiresLogin || loggedIn);
+
+const isLocalhost = Astro.url.hostname === 'localhost' || Astro.url.hostname === '127.0.0.1';
+const redirect = encodeURIComponent(Astro.url.href);
+const loginUrl = `${AUTH_ORIGIN}/login?redirect=${redirect}`;
+const logoutUrl = `${AUTH_ORIGIN}/logout?redirect=${redirect}`;
+---
+
+<BaseLayout>
+  <header class="mb-10 flex items-start justify-between">
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight text-text">Lam Pham</h1>
+      <p class="mt-1 text-sm text-muted">lampham.space</p>
+    </div>
+    {!isLocalhost && (
+      <a
+        href={loggedIn ? logoutUrl : loginUrl}
+        class="text-xs font-medium text-muted hover:text-accent-h transition-colors mt-1"
+      >
+        {loggedIn ? 'Log out' : 'Log in'}
+      </a>
+    )}
+  </header>
+
+  <nav class="flex-1 flex flex-col gap-3">
+    {visibleApps.map((app) => (
+      <a
+        href={app.href}
+        class="block rounded-lg border border-border bg-surface px-5 py-4 hover:border-accent-h transition-colors"
+      >
+        <span class="block text-base font-semibold text-text">{app.name}</span>
+        <span class="block text-sm text-muted no-underline">{app.description}</span>
+      </a>
+    ))}
+  </nav>
+
+  <footer class="mt-12 pt-4 border-t border-border text-center text-xs text-overlay">
+    <a href="https://github.com/phamlam24" class="hover:text-muted transition-colors">github</a>
+  </footer>
+</BaseLayout>

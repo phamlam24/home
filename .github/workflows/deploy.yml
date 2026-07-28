@@ -27,7 +27,8 @@ jobs:
         run: |
           ssh lpham@ssh.lampham.space "
             cd /var/www/lampham.space &&
-            git pull &&
+            git fetch origin main &&
+            git reset --hard origin/main &&
             printf 'JWT_SECRET=%s\n' '${{ secrets.JWT_SECRET }}' > .env &&
             npm ci &&
             npm run build &&

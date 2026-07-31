@@ -2,6 +2,8 @@
 
 See [`../CLAUDE.md`](../CLAUDE.md) for cross-app architecture and [`../docs/HOSTING.md`](../docs/HOSTING.md) for server/infra details. This file only covers things specific to this app's code.
 
+**No worktrees, ever** — edit directly in this checkout (see `../CLAUDE.md`'s Git workflow section).
+
 ## What this is
 
 Serves the root domain `lampham.space`. For now it's just a redirect hub linking to the other apps; it's expected to grow into a full portfolio site later. No database, no admin editing — just a login check to decide which links to show.

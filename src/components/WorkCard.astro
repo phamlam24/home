@@ -32,13 +32,16 @@ const { title, subtitle, bullets, prize, links, image, featured = false } = Astr
       <p class="mt-1 text-sm text-muted">{subtitle}</p>
     </div>
     {prize && (
-      <span class="self-start sm:shrink-0 rounded-full border border-accent-h/40 px-3 py-1 text-xs font-medium text-accent-h">
+      <span
+        class="self-start sm:shrink-0 rounded-full border border-accent-h/40 px-3 py-1 text-xs font-medium text-accent-h"
+        style="font-family: var(--font-mono);"
+      >
         {prize}
       </span>
     )}
   </div>
 
-  <ul class="mt-4 space-y-1.5 text-sm text-muted list-disc list-inside">
+  <ul class="terminal-list mt-4 space-y-1.5 text-sm text-muted">
     {bullets.map((bullet) => <li>{bullet}</li>)}
   </ul>
 

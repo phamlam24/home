@@ -15,6 +15,7 @@
   ></div>
 
   <div class="mx-auto max-w-4xl text-center">
+    <p class="eyebrow mb-4">$ whoami<span class="cursor-blink">_</span></p>
     <h1
       class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-text"
       style="font-family: var(--font-display);"
@@ -24,7 +25,7 @@
     <p class="mt-6 text-lg sm:text-xl text-muted max-w-2xl mx-auto">
       A creative, ambitious engineer building at the intersection of
       <span id="rotating-word-wrapper" class="inline-block overflow-hidden align-bottom" style="transition: width 0.3s ease;">
-        <span id="rotating-word" class="text-accent-h font-semibold whitespace-nowrap">web development</span>
+        <span id="rotating-word" class="text-accent-h font-semibold whitespace-nowrap" style="font-family: var(--font-mono);">web development</span>
       </span>.
     </p>
     <div class="mt-10 flex items-center justify-center gap-6 text-sm">
@@ -55,6 +56,16 @@
       </a>
     </div>
   </div>
+
+  <a
+    href="#work"
+    aria-label="Scroll to work"
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 text-overlay hover:text-accent-h transition-colors motion-safe:animate-bounce"
+  >
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  </a>
 </section>
 
 <script>

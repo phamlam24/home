@@ -22,6 +22,7 @@
 
   --font-sans:    'Inter', system-ui, sans-serif;
   --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
 }
 
 @layer base {
@@ -72,6 +73,41 @@
     border-color: var(--color-accent-h);
     box-shadow: 0 0 32px -12px var(--color-accent-h);
   }
+
+  /* Section eyebrows read like a shell path (~/work $) — ties into the
+     "learning Linux/Vim" bio line rather than a generic label. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--color-accent-h);
+  }
+
+  .cursor-blink {
+    display: inline-block;
+    animation: cursor-blink 1.1s steps(1) infinite;
+  }
+  @keyframes cursor-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  /* Prompt-style bullets ("> ...") instead of default list discs. */
+  .terminal-list {
+    list-style: none;
+    padding: 0;
+  }
+  .terminal-list li {
+    position: relative;
+    padding-left: 1.3em;
+  }
+  .terminal-list li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    font-family: var(--font-mono);
+    color: var(--color-accent-h);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -88,5 +124,9 @@
   }
   #hero-canvas {
     display: none;
+  }
+  .cursor-blink {
+    animation: none;
+    opacity: 1;
   }
 }

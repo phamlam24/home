@@ -15,7 +15,7 @@ const { org, role, dates, bullets } = Astro.props;
     <h3 class="font-semibold text-text">{org} <span class="font-normal text-muted">— {role}</span></h3>
     <span class="text-xs text-overlay whitespace-nowrap" style="font-family: var(--font-mono);">{dates}</span>
   </div>
-  <ul class="terminal-list mt-2 space-y-1.5 text-sm text-muted">
+  <ul class="dot-list mt-2 space-y-1.5 text-sm text-muted">
     {bullets.map((bullet) => <li>{bullet}</li>)}
   </ul>
 </div>

@@ -10,6 +10,8 @@ Serves the root domain `lampham.space`. For now it's just a redirect hub linking
 
 Built with **Astro (SSR, server output)** + **Tailwind CSS v4** + Catppuccin Macchiato, matching the other apps' look. No Preact/islands — the page has no interactivity yet.
 
+**Never use em dashes in any visible copy on this site** (headings, prose, bullets, titles, prize/subtitle strings, etc.) — use a comma, colon, period, or `·` instead depending on context.
+
 ## Auth: login-gated visibility, not admin editing
 
 Unlike climbing-tracker (public + admin editing) or learn (fully login-gated), this app is public but shows a different **set of links** depending on login state:

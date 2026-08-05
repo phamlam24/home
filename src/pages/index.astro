@@ -24,15 +24,15 @@ import ExperienceItem from '../components/ExperienceItem.astro';
         featured
         title="TeachXR"
         subtitle="AI study assistant in extended reality, built for Meta Quest"
-        prize="Most Impressive Use of Voice AI — CalHacks 2024"
+        prize="Most Impressive Use of Voice AI, CalHacks 2024"
         image="/images/teachxr-cover.jpg"
         links={[
           { label: 'Devpost', href: 'https://devpost.com/software/teachxr' },
           { label: 'Watch demo', href: 'https://youtu.be/qVoCHS9BaIc' },
         ]}
         bullets={[
-          'Real-time OCR microservice reading Meta Quest camera streams — 50ms latency, 98% accuracy (Google Cloud Vision + SingleStore MongoDB)',
-          'Human-like LLM voice teacher (Vapi AI: Cartesia, Gemini, Deepgram) — 85% positive feedback',
+          'Real-time OCR microservice reading Meta Quest camera streams: 50ms latency, 98% accuracy (Google Cloud Vision + SingleStore MongoDB)',
+          'Human-like LLM voice teacher (Vapi AI: Cartesia, Gemini, Deepgram), 85% positive feedback',
           'React + Tailwind frontend for live transcription and interaction',
         ]}
       />
@@ -40,7 +40,7 @@ import ExperienceItem from '../components/ExperienceItem.astro';
       <WorkCard
         title="Young Heroes"
         subtitle="AI-powered 911 call simulation teaching kids emergency response"
-        prize="3rd Place Overall — HopHacks"
+        prize="3rd Place Overall, HopHacks"
         image="/images/youngheroes-cover.jpg"
         links={[{ label: 'Devpost', href: 'https://devpost.com/software/young-heroes-hmi2vl' }]}
         bullets={[
@@ -64,7 +64,7 @@ import ExperienceItem from '../components/ExperienceItem.astro';
       />
     </div>
 
-    <p class="mt-8 text-xs text-overlay">8+ years programming and solving problems — GitHub commits go back to 2019.</p>
+    <p class="mt-8 text-xs text-overlay">8+ years programming and solving problems. GitHub commits go back to 2019.</p>
   </section>
 
   <section class="reveal mx-auto max-w-3xl px-6 py-20">
@@ -72,13 +72,23 @@ import ExperienceItem from '../components/ExperienceItem.astro';
     <h2 class="text-2xl font-bold text-text mb-8" style="font-family: var(--font-display);">Experience</h2>
     <div class="flex flex-col gap-8">
       <ExperienceItem
+        org="Base.vn"
+        role="Fullstack Engineer"
+        dates="May 2026 – Current"
+        bullets={[
+          'Maintain and develop the Base.vn business platform (PHP, JS, SQL) for 11,000+ companies: 30+ tickets shipped, 99.99% stability',
+          'Collaborate with 10+ businesses to identify pain points and implement/QA solutions',
+          'Architected 3 features for a next-gen business process management product: sub-2s response times, native AI in every process',
+        ]}
+      />
+      <ExperienceItem
         org="Fetch Rewards"
         role="Backend Engineer Intern"
         dates="May – Aug 2025"
         bullets={[
-          'Designed Go endpoints replacing cache dependencies — 80% reduction in response payload size',
-          'Built resilient data-hydration services with concurrency, retries, and backoff — 60% P99 latency cut, serving 250K+ daily users',
-          'Researched MCP and agentic workflows — 150% efficiency gain in context-finding, 200% increase in business-aware unit testing',
+          'Designed Go endpoints replacing cache dependencies: 80% reduction in response payload size',
+          'Built resilient data-hydration services with concurrency, retries, and backoff: 60% P99 latency cut, serving 250K+ daily users',
+          'Researched MCP and agentic workflows: 150% efficiency gain in context-finding, 200% increase in business-aware unit testing',
         ]}
       />
       <ExperienceItem
@@ -87,7 +97,7 @@ import ExperienceItem from '../components/ExperienceItem.astro';
         dates="May – Aug 2023"
         bullets={[
           'Built a classification system for a government database of 2M+ companies (SQL, ASP.NET MVC)',
-          'Overhauled Excel export via C# extensions — 75% runtime reduction',
+          'Overhauled Excel export via C# extensions: 75% runtime reduction',
           '8 responsive frontend pages, including chart dashboards',
         ]}
       />
@@ -113,7 +123,7 @@ import ExperienceItem from '../components/ExperienceItem.astro';
     <div class="mx-auto max-w-2xl px-6 py-16 text-center">
       <p class="eyebrow mb-2">Contact</p>
       <h2 class="text-2xl font-bold text-text" style="font-family: var(--font-display);">Let's connect</h2>
-      <p class="mt-2 text-sm text-muted">Open to new opportunities and interesting problems — reach out.</p>
+      <p class="mt-2 text-sm text-muted">Open to new opportunities and interesting problems, reach out.</p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
         <a
           href="https://www.linkedin.com/in/lam-pham/"

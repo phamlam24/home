@@ -2,7 +2,7 @@
 
 See [`../CLAUDE.md`](../CLAUDE.md) for cross-app architecture and [`../docs/HOSTING.md`](../docs/HOSTING.md) for server/infra details. This file only covers things specific to this app's code.
 
-**No worktrees, ever** — edit directly in this checkout (see `../CLAUDE.md`'s Git workflow section).
+Worktrees are allowed (see `../CLAUDE.md`'s Git workflow section) — edit directly in this checkout for most changes, use one when isolation actually helps.
 
 ## What this is
 
@@ -23,7 +23,7 @@ Unlike climbing-tracker (public + admin editing) or learn (fully login-gated), t
 
 ## Adding a new app to the hub
 
-Edit the `APPS` array in `src/pages/index.astro` — add `{ name, href, description, requiresLogin }`. That's the only change needed; the page filters and renders from that list.
+Edit the `APPS` array in `src/pages/apps.astro` — add `{ name, href, description, requiresLogin }`. That's the only change needed; the page filters and renders from that list.
 
 ## Project structure
 
@@ -41,7 +41,12 @@ src/
     BaseLayout.astro           # minimal shell — no header nav, just the page content
 
   pages/
-    index.astro                 # the hub itself: APPS array, login-based filtering, login/logout link
+    index.astro                 # portfolio landing page
+    apps.astro                  # the app hub: APPS array, login-based filtering, login/logout link
+
+  components/
+    Footer.astro                # shared footer (home/apps nav, github, status, copyright, log out) —
+                                  # used on apps.astro; index.astro keeps its own richer portfolio footer
 
   styles/
     global.css                  # Tailwind v4 + Catppuccin Macchiato, same semantic token aliases

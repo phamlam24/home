@@ -4,6 +4,8 @@ See [`../CLAUDE.md`](../CLAUDE.md) for cross-app architecture and [`../docs/HOST
 
 Worktrees are allowed (see `../CLAUDE.md`'s Git workflow section) — edit directly in this checkout for most changes, use one when isolation actually helps.
 
+**Versioning is commit-message-driven, not manual** — prefix a commit with `(patch)`/`(minor)`/`(major)` to have CI bump `package.json` accordingly on push; no prefix means no version change. See `../CLAUDE.md`'s Versioning section for the policy and `.github/workflows/deploy.yml`'s "Bump version from commit message prefix" step for the mechanism.
+
 ## What this is
 
 Serves the root domain `lampham.space`. For now it's just a redirect hub linking to the other apps; it's expected to grow into a full portfolio site later. No database, no admin editing — just a login check to decide which links to show.

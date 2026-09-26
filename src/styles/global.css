@@ -1,54 +1,19 @@
 @import "tailwindcss";
-@import "@catppuccin/tailwindcss/macchiato.css";
+/* Suite design system — generated copy, see ./lampham/README.md. Accent
+   (mauve, the suite brand) comes from <html data-app="home">. */
+@import "./lampham/index.css";
 
-/*
-  Same semantic-alias approach as climbing-tracker/learn — components use
-  these names, never ctp-* directly, so swapping flavors is a single-file edit.
-*/
+/* Portfolio-local: teal as the second hero colour (gradient, highlights). */
 @theme {
-  --color-base:     var(--color-ctp-base);
-  --color-mantle:   var(--color-ctp-mantle);
-  --color-crust:    var(--color-ctp-crust);
-  --color-surface:  var(--color-ctp-surface0);
-  --color-surface2: var(--color-ctp-surface1);
-  --color-border:   var(--color-ctp-surface0);
-  --color-text:     var(--color-ctp-text);
-  --color-muted:    var(--color-ctp-subtext1);
-  --color-overlay:  var(--color-ctp-overlay1);
-
-  --color-accent:   var(--color-ctp-green);
-  --color-accent-h: var(--color-ctp-teal);
-  --color-accent-2: var(--color-ctp-mauve);
-
-  --font-sans:    'Inter', system-ui, sans-serif;
-  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+  --color-accent-2: var(--color-ctp-teal);
 }
 
 @layer base {
-  *, *::before, *::after { box-sizing: border-box; }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    background-color: var(--color-mantle);
-    color: var(--color-text);
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  a {
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-  a:hover {
-    color: var(--color-accent-h);
-    text-decoration: underline;
-  }
+  html { scroll-behavior: smooth; }
+  /* The hero's canvas/gradient sit at negative z-index behind the page; only
+     <html> paints the page colour here, so <body> must stay transparent or
+     it would cover them. */
+  body { background-color: transparent; }
 }
 
 /* Scroll-reveal: sections start hidden/offset, JS flips this class on
@@ -58,7 +23,7 @@
   .reveal {
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.6s var(--ease-soft), transform 0.6s var(--ease-soft);
   }
   .reveal.is-revealed {
     opacity: 1;
@@ -66,12 +31,15 @@
   }
 
   .card-tilt {
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform var(--duration-base) var(--ease-soft),
+      border-color var(--duration-base) var(--ease-soft),
+      box-shadow var(--duration-base) var(--ease-soft);
     transform-style: preserve-3d;
   }
   .card-tilt:hover {
-    border-color: var(--color-accent-h);
-    box-shadow: 0 0 32px -12px var(--color-accent-h);
+    border-color: color-mix(in oklab, var(--color-accent) 55%, var(--color-border));
+    box-shadow: 0 0 36px -14px var(--color-accent);
   }
 
   .eyebrow {
@@ -79,7 +47,7 @@
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-accent-h);
+    color: var(--color-accent);
   }
 
   /* Accent-dot bullets instead of default list discs. */
@@ -99,7 +67,7 @@
     width: 5px;
     height: 5px;
     border-radius: 9999px;
-    background: var(--color-accent-h);
+    background: var(--color-accent);
   }
 }
 

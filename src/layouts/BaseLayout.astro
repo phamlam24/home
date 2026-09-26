@@ -1,12 +1,6 @@
 ---
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
-import '@fontsource/space-grotesk/500.css';
-import '@fontsource/space-grotesk/700.css';
-import '@fontsource/jetbrains-mono/400.css';
-import '@fontsource/jetbrains-mono/500.css';
 import '../styles/global.css';
+import SuiteHead from '../components/lampham/SuiteHead.astro';
 
 interface Props {
   title?: string;
@@ -22,11 +16,12 @@ const ogImage = new URL('/og-image.png', Astro.url.origin).toString();
 ---
 
 <!doctype html>
-<html lang="en" class="macchiato">
+<html lang="en" data-app="home">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <SuiteHead />
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta property="og:title" content={title} />
@@ -39,6 +34,10 @@ const ogImage = new URL('/og-image.png', Astro.url.origin).toString();
   <meta name="twitter:image" content={ogImage} />
 </head>
 <body>
-  <slot />
+  <!-- Block wrapper: body is a flex column (suite base), and the pages'
+       mx-auto sections would otherwise shrink to their content width. -->
+  <div class="flex-1 w-full">
+    <slot />
+  </div>
 </body>
 </html>

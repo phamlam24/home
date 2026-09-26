@@ -1,13 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SuiteHeader from '../components/lampham/SuiteHeader.astro';
 import SuiteFooter from '../components/lampham/SuiteFooter.astro';
 import Hero from '../components/Hero.astro';
 import StatsStrip from '../components/StatsStrip.astro';
 import WorkCard from '../components/WorkCard.astro';
 import ExperienceItem from '../components/ExperienceItem.astro';
+import { isLoggedIn } from '../lib/auth';
+import { AUTH_ORIGIN } from '../lib/authOrigin';
+
+const loggedIn = await isLoggedIn(Astro.request, Astro.cookies);
+const isLocalhost = Astro.url.hostname === 'localhost' || Astro.url.hostname === '127.0.0.1';
+const redirect = encodeURIComponent(Astro.url.href);
+const authHref = isLocalhost
+  ? undefined
+  : `${AUTH_ORIGIN}/${loggedIn ? 'logout' : 'login'}?redirect=${redirect}`;
 ---
 
 <BaseLayout>
+  <SuiteHeader current="home" loggedIn={loggedIn} authHref={authHref} width="56rem" />
+
   <Hero />
 
   <StatsStrip />

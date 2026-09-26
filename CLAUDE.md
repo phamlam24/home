@@ -10,7 +10,7 @@ Worktrees are allowed (see `../CLAUDE.md`'s Git workflow section) — edit direc
 
 Serves the root domain `lampham.space`. For now it's just a redirect hub linking to the other apps; it's expected to grow into a full portfolio site later. No database, no admin editing — just a login check to decide which links to show.
 
-Built with **Astro (SSR, server output)** + **Tailwind CSS v4** + the suite design system (`data-app="home"`, mauve accent = the suite brand; see [`../docs/DESIGN.md`](../docs/DESIGN.md)). **The portfolio (`/`) is deliberately not redesigned** — owner's call: same layout/content/hero/motion, only moved onto the suite tokens; no suite bar on `/` (its hero is the top), suite footer everywhere. `/apps` is a normal suite page with the suite bar. No Preact/islands — the page has no interactivity yet.
+Built with **Astro (SSR, server output)** + **Tailwind CSS v4** + the suite design system (`data-app="home"`, mauve accent = the suite brand; see [`../docs/DESIGN.md`](../docs/DESIGN.md)). **The portfolio (`/`) is deliberately not redesigned** — owner's call: same layout/content/hero/motion, only moved onto the suite tokens; suite bar + suite footer on both `/` (bar above the hero, added 2026-09-26) and `/apps`. No Preact/islands — the page has no interactivity yet.
 
 **Never use em dashes in any visible copy on this site** (headings, prose, bullets, titles, prize/subtitle strings, etc.) — use a comma, colon, period, or `·` instead depending on context.
 
@@ -43,7 +43,7 @@ src/
     BaseLayout.astro           # minimal shell — no header nav, just the page content
 
   pages/
-    index.astro                 # portfolio landing page
+    index.astro                 # portfolio landing page (suite bar above the hero, login/logout in it)
     apps.astro                  # the app hub: APPS array (id = suite accent dot), login-based filtering;
                                   # suite bar carries login/logout
 
